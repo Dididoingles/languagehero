@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Language Lab | Control Panel</title>
+    <title>Language Lab</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='70'>🧠</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -295,7 +295,7 @@
         }
 
         .glow-text {
-            font-size: 2.5rem;
+            font-size: 3rem;
             font-weight: 700;
             color: var(--text-primary);
             letter-spacing: -0.01em;
@@ -367,7 +367,7 @@
         .voice-text {
             font-weight: 600;
             letter-spacing: 2px;
-            font-size: 0.85rem;
+            font-size: 0.6rem;
             color: var(--text-secondary);
         }
 
@@ -384,20 +384,20 @@
             font-weight: bold;
         }
 
-        /* Cards Grid */
+        /* ========== CARDS QUE ESCALAM PROPORCIONALMENTE ========== */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
+            gap: clamp(12px, 3vw, 24px);
             margin-top: 20px;
         }
 
         .card-flip-container {
             perspective: 1500px;
-            height: 260px;
             cursor: pointer;
             opacity: 0;
             transform: translateY(30px);
+            aspect-ratio: 4 / 3.2;
         }
 
         .card-flip-inner {
@@ -417,12 +417,14 @@
             width: 100%;
             height: 100%;
             backface-visibility: hidden;
-            border-radius: 14px;
-            padding: 22px 18px;
+            border-radius: clamp(10px, 2vw, 16px);
+            padding: clamp(12px, 3vw, 24px);
             background: var(--card-bg);
             backdrop-filter: blur(12px);
             border: 1px solid var(--glass-border);
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
         .card-front {
@@ -440,10 +442,10 @@
         }
 
         .card-icon {
-            width: 48px;
-            height: 48px;
+            width: clamp(36px, 6vw, 36px);
+            height: clamp(36px, 6vw, 36px);
             color: var(--primary-red);
-            margin-bottom: 14px;
+            margin-bottom: clamp(6px, 2vw, 16px);
             transition: transform 0.3s ease;
         }
 
@@ -452,14 +454,14 @@
         }
 
         .card-title {
-            font-size: 1.2rem;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: clamp(4px, 1vw, 8px);
             color: var(--text-primary);
         }
 
         .card-badge {
-            font-size: 0.65rem;
+            font-size: clamp(0.55rem, 2vw, 0.75rem);
             color: var(--text-tertiary);
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -474,23 +476,23 @@
         }
 
         .card-description {
-            font-size: 0.8rem;
-            line-height: 1.45;
+            font-size: clamp(0.5rem, 2.2vw, 0.7rem);
+            line-height: 1.4;
             color: var(--text-primary);
             text-align: left;
-            margin-bottom: 16px;
+            margin-bottom: clamp(8px, 2vw, 16px);
         }
 
         .arrow-link {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: clamp(4px, 1.5vw, 8px);
             color: var(--text-primary);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.8rem;
+            font-size: clamp(0.65rem, 2vw, 0.85rem);
             transition: all 0.3s ease;
-            padding: 5px 10px;
+            padding: clamp(4px, 1vw, 8px) clamp(6px, 2vw, 12px);
             background: rgba(255, 255, 255, 0.1);
             border-radius: 6px;
             width: fit-content;
@@ -506,7 +508,7 @@
             align-items: center;
             gap: 6px;
             margin-top: auto;
-            font-size: 0.65rem;
+            font-size: clamp(0.55rem, 1.8vw, 0.7rem);
             color: var(--text-tertiary);
         }
 
@@ -604,18 +606,47 @@
             border-radius: 50%;
         }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
+        /* ========== RESPONSIVE - AJUSTA NÚMERO DE COLUNAS E PROPORÇÃO ========== */
+        
+        /* Desktop grande - 4 colunas */
+        @media (min-width: 1200px) {
             .cards-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 18px;
+                gap: 24px;
             }
             .card-flip-container {
-                height: 250px;
+                aspect-ratio: 4 / 3;
             }
         }
 
-        @media (max-width: 768px) {
+        /* Desktop médio e tablet landscape - 4 colunas */
+        @media (max-width: 1100px) {
+            .cards-grid {
+                gap: 18px;
+            }
+            .card-flip-container {
+                aspect-ratio: 4 / 3.2;
+            }
+        }
+
+        /* Tablet - 2 colunas */
+        @media (max-width: 900px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .card-flip-container {
+                aspect-ratio: 4 / 3;
+            }
+        }
+
+        /* Mobile médio - 2 colunas */
+        @media (max-width: 600px) {
+            .cards-grid {
+                gap: 14px;
+            }
+            .card-flip-container {
+                aspect-ratio: 4 / 3.5;
+            }
             .glitch-text {
                 font-size: 2.5rem;
             }
@@ -627,25 +658,6 @@
             }
             .subtitle, .subtitle-panel {
                 font-size: 0.8rem;
-            }
-            .cards-grid {
-                gap: 14px;
-            }
-            .card-flip-container {
-                height: 240px;
-            }
-            .card-icon {
-                width: 40px;
-                height: 40px;
-            }
-            .card-title {
-                font-size: 1rem;
-            }
-            .card-face {
-                padding: 18px 14px;
-            }
-            .card-description {
-                font-size: 0.75rem;
             }
             .control-panel {
                 padding: 30px 15px 40px;
@@ -678,6 +690,26 @@
                 letter-spacing: 3px;
             }
         }
+
+        /* Mobile pequeno - 2 colunas */
+        @media (max-width: 450px) {
+            .cards-grid {
+                gap: 12px;
+            }
+            .card-flip-container {
+                aspect-ratio: 3 / 3.8;
+            }
+        }
+
+        /* Mobile muito pequeno */
+        @media (max-width: 380px) {
+            .cards-grid {
+                gap: 10px;
+            }
+            .card-flip-container {
+                aspect-ratio: 3 / 4;
+            }
+        }
     </style>
 </head>
 <body>
@@ -693,7 +725,7 @@
         </div>
     </div>
 
-    <!-- ========== HERO SECTION (EXACTLY AS ORIGINAL) ========== -->
+    <!-- ========== HERO SECTION ========== -->
     <div class="hero-section" id="heroSection">
         <div class="data-streams-container" id="dataStreams"></div>
         <canvas id="heroParticlesCanvas" class="particles-canvas"></canvas>
@@ -739,12 +771,11 @@
         <div class="voice-command-container">
             <button class="voice-btn" id="voiceCommandBtn">
                 <i data-lucide="mic" class="voice-icon"></i>
-                <span class="voice-text">Comando de voz</span>
-                
+                <span class="voice-text">Comando de voz 'Disponível em breve'</span>
             </button>
         </div>
         <div class="voice-feedback" id="voiceFeedback">
-            <span>Clique no microfone e diga um comando como: "Laboratórios" ou "Praticar fala"</span>
+            <span>Controle o language lab apenas com a sua voz. </span>
         </div>
 
         <div class="cards-grid" id="cardsGrid">
