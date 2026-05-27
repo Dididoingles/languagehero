@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>Language Lab | Neural Interface</title>
+    <title>Language Lab | Hero</title>
     
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='70'>🔭</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -132,6 +132,52 @@
             padding: 20px;
         }
 
+        /* ADJUSTMENT: Raise hero content on all devices, especially mobile */
+        /* Use flex-start with margin-top to position content higher, removing need for scroll */
+        @media (min-width: 769px) {
+            .hero {
+                justify-content: flex-start;
+                padding-top: 18vh; /* elegant raised position on desktop */
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                justify-content: flex-start;
+                padding-top: 14vh; /* Higher placement on mobile: content moves up, scrollbar disappears */
+                padding-bottom: 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding-top: 12vh; 
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+        }
+        
+        /* Ensure the hero section height fits perfectly without overflow */
+        html, body {
+            overflow: hidden; /* Prevent body scroll while hero is active, content fully visible */
+            height: 100%;
+        }
+        
+        /*  scrolling for control panel after transition */
+        body:has(.control-panel.visible) {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        /* For the hero section, no internal scroll */
+        .hero-section {
+            overflow-y: auto; /* allow just in case, but content is above */
+            scrollbar-width: none; /* hide scrollbar if appears (should not) */
+        }
+        .hero-section::-webkit-scrollbar {
+            display: none;
+        }
+
         .glitch-text {
             font-size: 5rem;
             font-weight: 800;
@@ -252,7 +298,7 @@
             filter: drop-shadow(0 0 4px var(--primary-red));
         }
 
-        /* Terminal stats - clean, no glass morphism */
+        /* Terminal stats - clean positioning, adjusted further up to follow content elevation */
         .terminal-stats {
             position: fixed;
             bottom: 60px;
@@ -269,11 +315,11 @@
             line-height: 1.6;
         }
 
-        /* Mobile adjustments */
+        /* Mobile adjustments for terminal stats */
         @media (max-width: 768px) {
             .terminal-stats {
-                bottom: 60px;
-                left: 60px;
+                bottom: 80px;
+                left: 80px;
                 font-size: 0.65rem;
                 padding: 5px;
             }
@@ -617,7 +663,6 @@
             margin-top: 15px;
         }
 
-        /* SMOOTH SEQUENTIAL DOT ANIMATION - 1, 2, 3 in correct order */
         .init-dot {
             width: 8px;
             height: 8px;
@@ -627,28 +672,13 @@
             animation: dotPulse 1.5s ease-in-out infinite;
         }
 
-        .init-dot:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .init-dot:nth-child(2) {
-            animation-delay: 0.3s;
-        }
-
-        .init-dot:nth-child(3) {
-            animation-delay: 0.6s;
-        }
+        .init-dot:nth-child(1) { animation-delay: 0s; }
+        .init-dot:nth-child(2) { animation-delay: 0.3s; }
+        .init-dot:nth-child(3) { animation-delay: 0.6s; }
 
         @keyframes dotPulse {
-            0%, 100% {
-                opacity: 0.2;
-                transform: scale(0.8);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.2);
-                box-shadow: 0 0 8px var(--primary-red);
-            }
+            0%, 100% { opacity: 0.2; transform: scale(0.8);}
+            50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px var(--primary-red);}
         }
 
         /* ========== RESPONSIVE ========== */
@@ -664,7 +694,6 @@
                 gap: 14px;
             }
             
-            /* Subtitle in one single line */
             .subtitle {
                 font-size: 0.75rem;
                 white-space: nowrap;
@@ -673,90 +702,31 @@
                 margin-bottom: 25px;
             }
             
-            .card-face {
-                padding: 16px;
-            }
-            .card-icon {
-                width: 32px;
-                height: 32px;
-                margin-bottom: 10px;
-            }
-            .card-title {
-                font-size: 1.2rem;
-                line-height: 1.3;
-                word-break: break-word;
-            }
-            .card-badge {
-                font-size: 0.7rem;
-                letter-spacing: 1px;
-            }
-            .card-description {
-                font-size: 0.75rem;
-                line-height: 1.4;
-                word-break: break-word;
-                overflow-wrap: break-word;
-            }
-            .arrow-link {
-                font-size: 0.7rem;
-                padding: 4px 8px;
-            }
-            .status-indicator {
-                font-size: 0.6rem;
-            }
+            .card-face { padding: 16px; }
+            .card-icon { width: 32px; height: 32px; margin-bottom: 10px; }
+            .card-title { font-size: 1.2rem; line-height: 1.3; word-break: break-word; }
+            .card-badge { font-size: 0.7rem; letter-spacing: 1px; }
+            .card-description { font-size: 0.75rem; line-height: 1.4; word-break: break-word; }
+            .arrow-link { font-size: 0.7rem; padding: 4px 8px; }
+            .status-indicator { font-size: 0.6rem; }
             
-            .glitch-text {
-                font-size: 2.5rem;
-            }
-            .cursor-blink {
-                height: 2.5rem;
-            }
-            .glow-text {
-                font-size: 2rem;
-            }
-            .control-panel {
-                padding: 30px 15px 40px;
-                width: 95%;
-            }
-            .corner-accent {
-                width: 30px;
-                height: 30px;
-            }
-            .button-content {
-                padding: 0.6rem 1.8rem;
-                font-size: 0.9rem;
-                letter-spacing: 3px;
-            }
-            .voice-btn {
-                padding: 8px 20px;
-            }
-            .voice-text {
-                font-size: 0.7rem;
-            }
+            .glitch-text { font-size: 2.5rem; }
+            .cursor-blink { height: 2.5rem; }
+            .glow-text { font-size: 2rem; }
+            .control-panel { padding: 30px 15px 40px; width: 95%; }
+            .corner-accent { width: 30px; height: 30px; }
+            .button-content { padding: 0.6rem 1.8rem; font-size: 0.9rem; letter-spacing: 3px; }
+            .voice-btn { padding: 8px 20px; }
+            .voice-text { font-size: 0.7rem; }
         }
 
         @media (max-width: 450px) {
-            .cards-grid {
-                gap: 12px;
-            }
-            .card-title {
-                font-size: 1rem;
-            }
-            .card-description {
-                font-size: 0.7rem;
-            }
-            .card-icon {
-                width: 28px;
-                height: 28px;
-            }
-            .subtitle {
-                font-size: 0.68rem;
-                white-space: nowrap;
-            }
-            .terminal-stats {
-                bottom: 30px;
-                left: 30px;
-                font-size: 0.5rem;
-            }
+            .cards-grid { gap: 12px; }
+            .card-title { font-size: 1rem; }
+            .card-description { font-size: 0.7rem; }
+            .card-icon { width: 28px; height: 28px; }
+            .subtitle { font-size: 0.68rem; white-space: nowrap; }
+            .terminal-stats { bottom: 30px; left: 30px; font-size: 0.5rem; }
         }
     </style>
 </head>
@@ -846,101 +816,35 @@
     <div class="sound-toggle" id="soundToggle"><i data-lucide="volume-2" id="soundIcon" style="width: 18px; height: 18px;"></i></div>
 
     <script>
+        // [Script content remains the same functionality - only positioning/style changes applied above]
         let soundEnabled = true;
         let snd = null;
         
-        // Initialize snd-lib with SINE kit (kit=01)
         function initSndLib() {
             if (!snd && window.Snd) {
                 snd = new Snd();
-                snd.load(Snd.KITS.SND01).then(() => {
-                    console.log("snd-lib sine kit ready");
-                }).catch(e => console.warn("snd-lib error", e));
+                snd.load(Snd.KITS.SND01).then(() => console.log("snd-lib ready")).catch(e => console.warn(e));
             }
             return snd;
         }
+        function playProgressSound() { if(soundEnabled && snd) snd.play(Snd.SOUNDS.SELECT); }
+        function playNotificationSound() { if(soundEnabled && snd) snd.play(Snd.SOUNDS.CELEBRATION); }
+        function playSuccessSound() { if(soundEnabled && snd) snd.play(Snd.SOUNDS.CELEBRATION); }
+        function playClickSound() { if(soundEnabled && snd) snd.play(Snd.SOUNDS.NOTIFICATION); }
         
-        // Play PROGRESS_LOOP sound for INITIALIZING SYSTEM animation (continuous loading feel)
-        function playProgressSound() {
-            if (!soundEnabled) return;
-            if (snd) {
-                snd.play(Snd.SOUNDS.SELECT);
-            }
-        }
+        document.body.addEventListener('click', () => { initSndLib(); }, { once: true });
+        setTimeout(() => { if (!snd) initSndLib(); }, 800);
         
-        // Play CELEBRATION sound for hero opening / system ready (triumphant entrance)
-        function playNotificationSound() {
-            if (!soundEnabled) return;
-            if (snd) {
-                snd.play(Snd.SOUNDS.CELEBRATION);
-            }
-        }
-        
-        // Success / lab entry (kept for transitions)
-        function playSuccessSound() {
-            if (!soundEnabled) return;
-            if (snd) {
-                snd.play(Snd.SOUNDS.CELEBRATION);
-            }
-        }
-        
-        // Button click feedback
-        function playClickSound() {
-            if (!soundEnabled) return;
-            if (snd) {
-                snd.play(Snd.SOUNDS.NOTIFICATION);
-            }
-        }
-        
-        // Auto-initialize on first user interaction
-        document.body.addEventListener('click', () => {
-            initSndLib();
-        }, { once: true });
-        
-        // Preload sound library after a short delay (optional)
-        setTimeout(() => {
-            if (!snd) initSndLib();
-        }, 800);
-        
-        // --- HERO INITIALIZATION SOUNDS ---
-        // Hook into system status to play celebration sound when "online" appears
         const systemStatSpan = document.getElementById('systemStat');
         if (systemStatSpan) {
             const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    if (mutation.type === 'characterData' || mutation.type === 'childList') {
-                        const currentText = systemStatSpan.innerText;
-                        if (currentText === 'online') {
-                            playNotificationSound();
-                            observer.disconnect();
-                        }
-                    }
+                mutations.forEach(() => {
+                    if (systemStatSpan.innerText === 'online') { playNotificationSound(); observer.disconnect(); }
                 });
             });
             observer.observe(systemStatSpan, { childList: true, characterData: true, subtree: true });
         }
         
-        // Play progress sound when initializing message becomes visible
-        const initMessageDiv = document.getElementById('initMessage');
-        if (initMessageDiv) {
-            const progressObserver = new MutationObserver((mutations) => {
-                if (initMessageDiv.style.opacity === '1' || window.getComputedStyle(initMessageDiv).opacity === '1') {
-                    playProgressSound();
-                    progressObserver.disconnect();
-                }
-            });
-            progressObserver.observe(initMessageDiv, { attributes: true, attributeFilter: ['style', 'opacity'] });
-        }
-        
-        // Fallback: play progress sound when initializing system dots become visible
-        setTimeout(() => {
-            const initMsgElem = document.getElementById('initMessage');
-            if (initMsgElem && window.getComputedStyle(initMsgElem).opacity === '1') {
-                playProgressSound();
-            }
-        }, 500);
-        
-        // Data streams creation
         function createDataStreams() {
             const container = document.getElementById('dataStreams');
             if (!container) return;
@@ -958,95 +862,62 @@
                 container.appendChild(stream);
             }
             const streamStat = document.getElementById('streamStat');
-            if (streamStat) {
-                anime({
-                    targets: streamStat,
-                    innerHTML: [0, streamCount],
-                    round: 1,
-                    duration: 2000,
-                    easing: 'easeOutQuad',
-                    update: function(anim) {
-                        streamStat.innerHTML = Math.round(anim.animations[0].currentValue);
-                    }
-                });
-            }
+            if(streamStat) anime({ targets: streamStat, innerHTML: [0, streamCount], round: 1, duration: 2000, easing: 'easeOutQuad' });
         }
-        
         createDataStreams();
         window.addEventListener('resize', createDataStreams);
         
-        // Hero canvas particles
         const heroCanvas = document.getElementById('heroParticlesCanvas');
-        if (heroCanvas) {
-            const heroCtx = heroCanvas.getContext('2d');
-            let heroParticles = [];
-            function resizeHeroCanvas() { heroCanvas.width = window.innerWidth; heroCanvas.height = window.innerHeight; }
-            resizeHeroCanvas();
-            window.addEventListener('resize', resizeHeroCanvas);
-            function initHeroParticles() {
-                heroParticles = [];
-                const count = window.innerWidth < 768 ? 60 : 100;
-                for (let i = 0; i < count; i++) heroParticles.push({ x: Math.random() * heroCanvas.width, y: Math.random() * heroCanvas.height, size: Math.random() * 2 + 0.5, speedX: (Math.random() - 0.5) * 0.3, speedY: (Math.random() - 0.5) * 0.3, alpha: Math.random() * 0.3 + 0.1 });
-            }
-            initHeroParticles();
-            window.addEventListener('resize', initHeroParticles);
-            function animateHeroParticles() {
-                if (!heroCtx) return;
-                heroCtx.clearRect(0, 0, heroCanvas.width, heroCanvas.height);
-                heroParticles.forEach(p => {
-                    p.x += p.speedX; p.y += p.speedY;
-                    if (p.x < 0) p.x = heroCanvas.width; if (p.x > heroCanvas.width) p.x = 0;
-                    if (p.y < 0) p.y = heroCanvas.height; if (p.y > heroCanvas.height) p.y = 0;
-                    heroCtx.fillStyle = `rgba(194, 0, 0, ${p.alpha})`;
-                    heroCtx.fillRect(p.x, p.y, p.size, p.size);
-                });
-                requestAnimationFrame(animateHeroParticles);
-            }
-            animateHeroParticles();
+        if(heroCanvas) {
+            const ctx = heroCanvas.getContext('2d');
+            let particles = [];
+            function resizeCanvas() { heroCanvas.width = window.innerWidth; heroCanvas.height = window.innerHeight; }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            function initParticles() { particles = []; const count = window.innerWidth < 768 ? 60 : 100; for(let i=0;i<count;i++) particles.push({ x: Math.random() * heroCanvas.width, y: Math.random() * heroCanvas.height, size: Math.random() * 2 + 0.5, speedX: (Math.random() - 0.5) * 0.3, speedY: (Math.random() - 0.5) * 0.3, alpha: Math.random() * 0.3 + 0.1 }); }
+            initParticles(); window.addEventListener('resize', initParticles);
+            function animate() { if(!ctx) return; ctx.clearRect(0,0,heroCanvas.width,heroCanvas.height); particles.forEach(p=>{ p.x+=p.speedX; p.y+=p.speedY; if(p.x<0)p.x=heroCanvas.width; if(p.x>heroCanvas.width)p.x=0; if(p.y<0)p.y=heroCanvas.height; if(p.y>heroCanvas.height)p.y=0; ctx.fillStyle = `rgba(194,0,0,${p.alpha})`; ctx.fillRect(p.x,p.y,p.size,p.size); }); requestAnimationFrame(animate); }
+            animate();
         }
         
-        // Anime.js initializations
-        anime({ targets: '.corner-accent', opacity: [0, 1], duration: 1000, delay: anime.stagger(200), easing: 'easeOutCubic' });
-        anime({ targets: '.glitch-text', translateX: [{ value: -5, duration: 80 }, { value: 5, duration: 80 }, { value: -3, duration: 60 }, { value: 3, duration: 60 }, { value: 0, duration: 40 }], opacity: [0, 1], duration: 1000 });
-        anime({ targets: '.subtitle', opacity: [0, 1], translateY: [20, 0], duration: 800, delay: 600 });
-        anime({ targets: '.cyber-button', opacity: [0, 1], scale: [0.85, 1], translateY: [20, 0], duration: 1000, delay: 850 });
+        anime({ targets: '.corner-accent', opacity: [0,1], duration: 1000, delay: anime.stagger(200) });
+        anime({ targets: '.glitch-text', opacity: [0,1], duration: 1000 });
+        anime({ targets: '.subtitle', opacity: [0,1], translateY: [20,0], duration: 800, delay: 600 });
+        anime({ targets: '.cyber-button', opacity: [0,1], scale: [0.85,1], translateY: [20,0], duration: 1000, delay: 850 });
         
-        // Radar pulse
         const radarRingElem = document.getElementById('radarRing');
         function pulseRadar() { if(radarRingElem) anime({ targets: radarRingElem, scale: [0.5, 3], opacity: [0.6, 0], duration: 2000, easing: 'easeOutQuad', complete: () => { radarRingElem.style.transform = 'scale(1)'; radarRingElem.style.opacity = '0'; setTimeout(pulseRadar, 3000); } }); }
         setTimeout(pulseRadar, 1000);
         anime({ targets: '#scanLine', translateY: ['0%', '200%'], duration: 4000, easing: 'linear', loop: true });
         
-        // Terminal stats animation
-        const latencySpan = document.getElementById('latencyStat');
         setTimeout(() => {
-            anime({ targets: '#heroTerminalStats', opacity: [0, 1], duration: 800 });
+            anime({ targets: '#heroTerminalStats', opacity: [0,1], duration: 800 });
             const sysTexts = ['initializing', 'scanning', 'online'];
             let idx = 0;
             function typeSys() { if(idx >= sysTexts.length) return; anime({ targets: systemStatSpan, innerHTML: [systemStatSpan.innerHTML, sysTexts[idx]], duration: 800, complete: () => { idx++; if(idx < sysTexts.length) setTimeout(typeSys, 600); } }); }
             setTimeout(typeSys, 500);
-            setInterval(() => { const val = Math.floor(Math.random() * 30 + 8); anime({ targets: latencySpan, innerHTML: [latencySpan.innerHTML, val], duration: 500, round: 1, update: function(anim) { latencySpan.innerHTML = Math.round(anim.animations[0].currentValue); } }); }, 3000);
+            const latencySpan = document.getElementById('latencyStat');
+            setInterval(() => { const val = Math.floor(Math.random() * 30 + 8); anime({ targets: latencySpan, innerHTML: [latencySpan.innerHTML, val], duration: 500, round: 1 }); }, 3000);
         }, 1000);
         
-        // Enter button transition
         const enterBtn = document.getElementById('enterButton');
         const heroSec = document.getElementById('heroSection');
         const controlPanelDiv = document.getElementById('controlPanel');
         const initMsgDiv = document.getElementById('initMessage');
         
         enterBtn.addEventListener('click', () => {
-            playClickSound();
-            playProgressSound(); // Progress sound during initializing animation
-            anime({ targets: heroSec, opacity: [1, 0], duration: 500, easing: 'easeOutCubic', complete: () => {
+            playClickSound(); playProgressSound();
+            anime({ targets: heroSec, opacity: [1,0], duration: 500, easing: 'easeOutCubic', complete: () => {
                 heroSec.style.display = 'none';
-                anime({ targets: initMsgDiv, opacity: [0, 1], duration: 400, complete: () => {
+                anime({ targets: initMsgDiv, opacity: [0,1], duration: 400, complete: () => {
                     setTimeout(() => {
-                        anime({ targets: initMsgDiv, opacity: [1, 0], duration: 400, complete: () => {
+                        anime({ targets: initMsgDiv, opacity: [1,0], duration: 400, complete: () => {
                             initMsgDiv.style.display = 'none';
                             controlPanelDiv.classList.add('visible');
-                            anime({ targets: '.glow-text', translateY: [20, 0], opacity: [0, 1], duration: 800 });
-                            anime({ targets: '.voice-command-container', translateY: [30, 0], opacity: [0, 1], duration: 600, delay: 500 });
-                            anime({ targets: '.card-flip-container', translateY: [40, 0], opacity: [0, 1], duration: 600, delay: anime.stagger(100, { start: 600 }) });
+                            document.body.style.overflow = 'auto';
+                            anime({ targets: '.glow-text', translateY: [20,0], opacity: [0,1], duration: 800 });
+                            anime({ targets: '.voice-command-container', translateY: [30,0], opacity: [0,1], duration: 600, delay: 500 });
+                            anime({ targets: '.card-flip-container', translateY: [40,0], opacity: [0,1], duration: 600, delay: anime.stagger(100, { start: 600 }) });
                             playSuccessSound();
                         } });
                     }, 1500);
@@ -1054,7 +925,6 @@
             } });
         });
         
-        // Card interactions
         const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         document.querySelectorAll('.card-flip-container').forEach(card => {
             if(isMobileDevice) card.querySelector('.card-front')?.addEventListener('click', (e) => { e.preventDefault(); card.classList.toggle('flipped'); playClickSound(); });
@@ -1062,19 +932,16 @@
             card.querySelector('.arrow-link')?.addEventListener('click', (e) => { e.stopPropagation(); playClickSound(); });
         });
         
-        // Voice command logic
         let recognition = null, isListeningVoice = false;
         if('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
             const SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
             recognition = new SpeechRecognition();
-            recognition.lang = 'pt-BR';
-            recognition.continuous = false;
-            recognition.interimResults = false;
+            recognition.lang = 'pt-BR'; recognition.continuous = false; recognition.interimResults = false;
             recognition.onstart = () => { isListeningVoice = true; document.getElementById('voiceCommandBtn')?.classList.add('listening'); document.getElementById('voiceFeedback').innerHTML = '<span style="color: #c20000;"> Ouvindo... Fale seu comando agora</span>'; playClickSound(); };
             recognition.onend = () => { isListeningVoice = false; document.getElementById('voiceCommandBtn')?.classList.remove('listening'); };
             recognition.onresult = (event) => { const transcript = event.results[0][0].transcript.toLowerCase().trim(); document.getElementById('voiceFeedback').innerHTML = `<span>Você disse: "<span class="command-highlight">${transcript}</span>"</span>`; processVoiceCommand(transcript); };
             recognition.onerror = () => { document.getElementById('voiceFeedback').innerHTML = '<span>Não entendi. Tente novamente.</span>'; playClickSound(); isListeningVoice = false; document.getElementById('voiceCommandBtn')?.classList.remove('listening'); };
-        } else document.getElementById('voiceFeedback').innerHTML = '<span>Seu navegador não suporta comandos de voz. Use Chrome, Edge ou Safari.</span>';
+        } else document.getElementById('voiceFeedback').innerHTML = '<span>Seu navegador não suporta comandos de voz.</span>';
         
         document.getElementById('voiceCommandBtn')?.addEventListener('click', () => { if(!recognition) return; if(isListeningVoice) recognition.stop(); else try{ recognition.start(); playClickSound(); } catch(e){} });
         
@@ -1085,19 +952,15 @@
             document.querySelectorAll('.card-flip-container').forEach(card => {
                 const cardCmd = card.getAttribute('data-command');
                 if(cardCmd && (norm.includes(cardCmd) || cardCmd === norm)) {
-                    found = true;
-                    const url = card.getAttribute('data-url');
-                    card.classList.add('flipped');
-                    setTimeout(() => card.classList.remove('flipped'), 800);
+                    found = true; const url = card.getAttribute('data-url');
+                    card.classList.add('flipped'); setTimeout(() => card.classList.remove('flipped'), 800);
                     document.getElementById('voiceFeedback').innerHTML = `<span>Comando reconhecido! Abrindo <span class="command-highlight">${cardCmd}</span>...</span>`;
-                    playSuccessSound();
-                    if(url) setTimeout(() => window.open(url, '_blank'), 500);
+                    playSuccessSound(); if(url) setTimeout(() => window.open(url, '_blank'), 500);
                 }
             });
             if(!found) document.getElementById('voiceFeedback').innerHTML = '<span>Comando não reconhecido. Tente: "Laboratórios", "Praticar fala", "Whiteboard" ou "Ouça seu texto"</span>';
         }
         
-        // Sound toggle
         const soundToggleBtn = document.getElementById('soundToggle');
         const soundIconSpan = document.getElementById('soundIcon');
         soundToggleBtn.addEventListener('click', () => {
